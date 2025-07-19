@@ -28,6 +28,17 @@ services:
       - myapp
     ports:
       - "5173:5173"
+    
+  # laravel:
+  #   build: ./laravel
+  #   ports:
+  #     - "9010:80"
+  #   volumes:
+  #     - ./laravel:/var/www/html
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - myapp
 
 volumes:
   mysql_data:

@@ -1,0 +1,18 @@
+FROM php:8.3-apache
+
+# Instala dependências
+RUN apt-get update && apt-get install -y \
+    git unzip curl libzip-dev zip \
+    && docker-php-ext-install pdo pdo_mysql zip
+
+# Instala Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Define diretório do projeto
+WORKDIR /var/www/html
+
+# Copia arquivos e dá permissão
+COPY . .
+
+# Ativa reescrita do Apache
+#RUN a2enmod rewrite
