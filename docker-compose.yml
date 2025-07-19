@@ -19,15 +19,19 @@ services:
     command: --default-authentication-plugin=mysql_native_password
 
   vite-dev:
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
+    image: node:18
+    container_name: vite_dev
+    working_dir: /app
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     networks:
       - myapp
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
     
   # laravel:
   #   build: ./laravel
